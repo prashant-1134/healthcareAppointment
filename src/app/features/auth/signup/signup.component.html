@@ -1,0 +1,71 @@
+<div class="signup_Container">
+    <div class="container">
+      <div class="heading">Sign Up</div>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <!-- First Name -->
+        <input required class="input" type="text" formControlName="firstName" placeholder="First Name">
+        <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="error-message">
+          <small *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required.</small>
+          <small *ngIf="signupForm.get('firstName')?.errors?.['minlength']">First Name must be at least 2 characters.</small>
+        </div>
+  
+        <!-- Last Name -->
+        <input required class="input" type="text" formControlName="lastName" placeholder="Last Name">
+        <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="error-message">
+          <small *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+          <small *ngIf="signupForm.get('lastName')?.errors?.['minlength']">Last Name must be at least 2 characters.</small>
+        </div>
+  
+        <!-- Email -->
+        <input required class="input" type="email" formControlName="email" placeholder="E-mail">
+        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error-message">
+          <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</small>
+        </div>
+  
+        <!-- Password -->
+        <input required class="input" type="password" formControlName="password" placeholder="Password">
+        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error-message">
+          <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small>
+        </div>
+  
+        <!-- User Type Toggle -->
+        <div class="toggle-group">
+          <input type="radio" id="patient" formControlName="userType" (change)="onUserTypeChange('patient')" value="patient">
+          <label for="patient">Patient</label>
+          <input type="radio" id="doctor" formControlName="userType" (change)="onUserTypeChange('doctor')" value="doctor">
+          <label for="doctor">Doctor</label>
+        </div>
+  
+        <!-- Patient Specific Fields -->
+        <ng-container *ngIf="userType === 'patient'">
+          <input type="date" class="input" formControlName="dateOfBirth">
+          <select class="input1" formControlName="gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <textarea class="input2" formControlName="medicalHistory" placeholder="Enter medical history"></textarea>
+        </ng-container>
+  
+        <!-- Doctor Specific Fields -->
+        <ng-container *ngIf="userType === 'doctor'">
+          <input type="text" class="input" formControlName="specialty" placeholder="Enter your specialty">
+        </ng-container>
+  
+        <!-- Phone Number (Common Field) -->
+        <input type="text" class="input" formControlName="phoneNumber" placeholder="Phone Number">
+        <div *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched" class="error-message">
+          <small *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone Number is required.</small>
+          <small *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Invalid phone number format.</small>
+        </div>
+  
+        <!-- Sign Up Button -->
+        <input class="login-button" type="submit" [disabled]="signupForm.invalid" value="Sign Up">
+        <span>Already have an account? <a routerLink="/login">Login</a></span>
+      </form>
+    </div>
+  </div>
+  

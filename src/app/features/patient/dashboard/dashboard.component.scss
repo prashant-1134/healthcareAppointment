@@ -1,0 +1,169 @@
+/* Allow full-page scrolling */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Allow vertical scrolling */
+    height: auto;
+    gap: 0;
+  }
+  
+  /* Main Dashboard Layout */
+  .dashboard-container {
+   max-width: 95%;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #222;
+    margin:  0;
+    padding: 10px;
+    text-align: start;
+    color: #007acc;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: normal;
+    color: #444;
+    margin: 5px 0;
+}
+  
+  /* Grid Layout */
+  .grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    height: calc(100vh - 100px);
+  }
+  
+  /* Make individual sections scrollable */
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    overflow-y: auto; /* Enable scrolling */
+    max-height: 400px; /* Limit height so it scrolls inside */
+  }
+  
+  /* Hide Scrollbar but keep scrolling functionality */
+  .card::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .card::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 122, 204, 0.3);
+    border-radius: 6px;
+  }
+  
+  .card:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Upcoming Appointments (Left Side) */
+  .upcoming-appointments {
+    grid-row: span 2; /* Spanning full left side */
+    max-height: 100%;
+  }
+  
+  .appointment-card {
+    border-left: 5px solid #007acc;
+    padding: 10px;
+    margin-top: 10px;
+    background: #f0f9ff;
+    border-radius: 8px;
+  }
+  
+  .actions {
+    margin-top: 10px;
+  }
+  
+  .actions button {
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .reschedule {
+    background: #ffcc00;
+  }
+  
+  .cancel {
+    background: #ff4d4d;
+    color: white;
+  }
+  
+  /* Medical History (Upper Right) */
+  .medical-history {
+    grid-column: 2 / 3;
+    max-height: 100%;
+  }
+  
+  .history-card {
+    border-left: 5px solid #00c853;
+    padding: 10px;
+    margin-top: 10px;
+    background: #e8f5e9;
+    border-radius: 8px;
+  }
+  
+  .download-report {
+    display: inline-block;
+    margin-top: 5px;
+    color: #007acc;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .download-report:hover {
+    text-decoration: underline;
+  }
+  
+  /* Notifications (Lower Right) */
+  .notifications {
+    grid-column: 2 / 3;
+    max-height: 100%;
+  }
+  
+  .notification-card {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+  
+  .new {
+    background: #cce7ff;
+    border-left: 5px solid #007acc;
+  }
+  
+  .reminder {
+    background: #fff3cd;
+    border-left: 5px solid #ffcc00;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+  
+    .upcoming-appointments {
+      grid-row: auto;
+    }
+  
+    .medical-history,
+    .notifications {
+      grid-column: auto;
+    }
+  }
+  

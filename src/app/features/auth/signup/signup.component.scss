@@ -1,0 +1,169 @@
+.signup_Container {
+    display: flex;
+    align-items: flex-start; /* Prevent vertical centering */
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+//   .container {
+//     max-width: 350px;
+//     background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+//     border-radius: 40px;
+//     padding: 25px 35px;
+//     border: 5px solid white;
+//     box-shadow: rgba(133, 189, 215, 0.88) 0px 30px 30px -20px;
+//     text-align: center;
+//   }
+
+
+.container {
+    max-width: 350px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+    border-radius: 40px;
+    padding: 25px 35px;
+    border: 5px solid white;
+    box-shadow: rgba(133, 189, 215, 0.88) 0px 30px 30px -20px;
+    text-align: center;
+    min-height: 600px; /* Set a minimum height */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+  .heading {
+    font-weight: 900;
+    font-size: 30px;
+    color: rgb(16, 137, 211);
+  }
+  .input {
+    width: 90%;
+    background: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: #cff0ff 0px 10px 10px -5px;
+    border-inline: 2px solid transparent;
+  }
+  .input1{
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: #cff0ff 0px 10px 10px -5px;
+    border-inline: 2px solid transparent;
+  }
+
+  .input2{
+    min-width: 90%;
+    max-width: 90%;
+    min-height: 100px;
+    background: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: #cff0ff 0px 10px 10px -5px;
+  }
+
+
+  .input:focus {
+    outline: none;
+    border-inline: 2px solid #12B1D1;
+  }
+  .login-button {
+    width: 100%;
+    font-weight: bold;
+    background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
+    color: white;
+    padding-block: 15px;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: rgba(133, 189, 215, 0.88) 0px 20px 10px -15px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .login-button:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(133, 189, 215, 0.88) 0px 23px 10px -20px;
+  }
+  .login-button:active {
+    transform: scale(0.95);
+  }
+  span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  span a {
+    color: #0099ff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  span a:hover {
+    text-decoration: underline;
+  }
+
+//   .toggle-group{
+//     padding : 10px;
+//     display: flex;
+//     align-items: center;
+//     gap: 5px;
+//   }
+
+
+/* Toggle Group Container */
+.toggle-group {
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  /* Hide default radio buttons */
+  .toggle-group input {
+    display: none;
+  }
+  
+  /* Style for labels to look like buttons */
+  .toggle-group label {
+    background: #e0f2ff;
+    color: #007acc;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-align: center;
+  }
+  
+  /* Hover effect */
+  .toggle-group label:hover {
+    background: #cce7ff;
+    color: #005fa3;
+  }
+  
+  /* Active selection effect */
+  .toggle-group input:checked + label {
+    background: linear-gradient(45deg, #007acc, #12B1D1);
+    color: white;
+    border: 2px solid #005fa3;
+    box-shadow: 0px 4px 10px rgba(0, 122, 204, 0.3);
+    transform: scale(1.05);
+  }
+  
+  /* Error message styling */
+.error-message {
+    color: red;
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  
+  /* Disabled button styling for the Sign Up button */
+  .login-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  

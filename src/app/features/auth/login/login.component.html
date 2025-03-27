@@ -1,0 +1,12 @@
+<div class="login_container">
+    <div class="container">
+      <div class="heading">Log In</div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+        <input required class="input" type="email" formControlName="email" placeholder="E-mail">
+        <input required class="input" type="password" formControlName="password" placeholder="Password">
+        <input class="login-button" type="submit" value="Login">
+        <span>Don't have an account <a routerLink="/signup">SignUp</a></span>
+      </form>
+    </div>
+  </div>
+  
