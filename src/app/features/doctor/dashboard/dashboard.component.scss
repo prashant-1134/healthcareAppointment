@@ -1,34 +1,212 @@
-.not-found-container {
-    text-align: center;
-    padding: 50px;
-    
-    h1 {
-      font-size: 100px;
-      color: #ff4d4d;
-    }
-  
-    h2 {
-      font-size: 28px;
-      color: #333;
-    }
-  
-    p {
-      font-size: 18px;
-      color: #666;
-    }
-  
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-  
-    .btn:hover {
-      background-color: #0056b3;
-    }
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  height: auto;
+  background-color: gray !important;
+}
+
+/* Main Dashboard Layout */
+.dashboard-container {
+  max-width: 98%;
+  height: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  padding-right: 36px;
+}
+
+
+
+h2 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #007acc;
+  margin: 0;
+  padding: 10px;
+  text-align: start;
+}
+
+/* Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  height: calc(100vh - 100px);
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+/* Fixed Header inside Cards */
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 10;
+  text-align: start;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Scrollable Content */
+.card-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 10px;
+}
+
+/* Hide Scrollbars */
+.card-content::-webkit-scrollbar {
+  display: none;
+}
+.card-content {
+  scrollbar-width: none;
+}
+
+/* Upcoming Appointments (Left Side) */
+.upcoming-appointments {
+  grid-row: span 2;
+  max-height: 100%;
+}
+
+.appointment-card {
+  border-left: 5px solid #007acc;
+  padding: 10px;
+  margin-top: 10px;
+  background: #f0f9ff;
+  border-radius: 8px;
+}
+
+/* Actions */
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reschedule {
+  background: #ffcc00;
+}
+
+.cancel {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* Medical History (Upper Right) */
+.medical-history {
+  grid-column: 2 / 3;
+  max-height: 100%;
+}
+
+.history-card {
+  border-left: 5px solid #00c853;
+  padding: 10px;
+  margin-top: 10px;
+  background: #e8f5e9;
+  border-radius: 8px;
+}
+
+/* Download Report */
+.download-report {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007acc;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.download-report:hover {
+  text-decoration: underline;
+}
+
+/* Notifications (Lower Right) */
+.notifications {
+  grid-column: 2 / 3;
+  max-height: 100%;
+}
+
+.notification-card {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.Completed {
+  background: #cce7ff;
+  border-left: 5px solid #007acc;
+}
+
+.Scheduled {
+  background: #fff3cd;
+  border-left: 5px solid #ffcc00;
+}
+
+.no-appointments-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+  color: #555;
+}
+.book-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.book-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .grid-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
   }
-  
+
+  .upcoming-appointments {
+      grid-row: auto;
+  }
+
+  .medical-history,
+  .notifications {
+      grid-column: auto;
+  }
+}

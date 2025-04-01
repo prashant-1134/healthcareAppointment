@@ -1,7 +1,29 @@
-<div class="not-found-container">
-    <h1>404</h1>
-    <h2>Oops! Page Not Found</h2>
-    <p>The page you're looking for doesn't exist or was moved.</p>
-    <a routerLink="/" class="btn">Go Back Home</a>
+<div class="dashboard-container">
+  <div class="header">
+    <h2>Upcoming Appointments</h2>
   </div>
-  
+
+  <div class="grid-container">
+    <!-- Upcoming Appointments Section -->
+    <div class="upcoming-appointments card">
+      <h3>📅 Upcoming Appointments</h3>
+      <div class="card-content">
+        <ng-container *ngIf="upcomingAppointments && upcomingAppointments.length > 0; else noAppointments">
+          <div *ngFor="let appointment of upcomingAppointments" class="appointment-card">
+            <h4>{{ appointment.patient.firstName }} {{ appointment.patient.lastName }}</h4>
+            <p>📧 {{ appointment.patient.email }}</p>
+            <p>📞 {{ appointment.patient.phoneNumber }}</p>
+            <p>🩺 Medical History: {{ appointment.patient.medicalHistory }}</p>
+            <p>🗓️ {{ appointment.appointmentDate }} | ⏰ {{ appointment.appointmentTime }}</p>
+            <p>Status: <span [ngClass]="appointment.status">{{ appointment.status }}</span></p>
+          </div>
+        </ng-container>
+        <ng-template #noAppointments>
+          <div class="no-appointments-message">
+            <p>No upcoming appointments found.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
