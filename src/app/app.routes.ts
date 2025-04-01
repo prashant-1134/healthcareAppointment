@@ -15,7 +15,7 @@ export const routes: Routes = [
         loadComponent: () => import('./features/auth/signup/signup.component').then(m => m.SignupComponent),
     },
     {
-        path: 'patient/dashboard',
+        path: 'patient/dashboard/:patientId',
         loadComponent: () => import('./features/patient/dashboard/dashboard.component').then(m => m.DashboardComponent),
     }
 ];

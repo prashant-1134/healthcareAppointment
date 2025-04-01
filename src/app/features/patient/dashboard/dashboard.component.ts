@@ -1,70 +1,119 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
-
-interface Appointment {
-  doctor: string;
-  specialty: string;
-  date: string;
-  time: string;
-  location: string;
-}
-
-interface MedicalHistory {
-  visitDate: string;
-  doctor: string;
-  diagnosis: string;
-  prescription: string;
-  report?: string;
-}
-
-interface Notification {
-  type: string;
-  message: string;
-  date: string;
-}
+import { AppointmentService } from '../../../core/services/appointment.service';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AppointmentComponent } from '../appointment/appointment.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [DatePipe, CommonModule],
+  imports: [ CommonModule, DatePipe, MatDialogModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   userName: string = "John Doe"; // Placeholder user name
 
-  upcomingAppointments = [
-    { doctor: "Dr. Amit Patel", specialty: "Cardiologist", date: "March 28, 2025", time: "10:00 AM", location: "MedCare Clinic, Mumbai" },
-    { doctor: "Dr. Nisha Rao", specialty: "Neurologist", date: "April 3, 2025", time: "2:00 PM", location: "MedCare Clinic, Delhi" },
-      { doctor: "Dr. Amit Patel", specialty: "Cardiologist", date: "March 28, 2025", time: "10:00 AM", location: "MedCare Clinic, Mumbai" },
-      { doctor: "Dr. Nisha Rao", specialty: "Neurologist", date: "April 3, 2025", time: "2:00 PM", location: "MedCare Clinic, Delhi" },
-        { doctor: "Dr. Amit Patel", specialty: "Cardiologist", date: "March 28, 2025", time: "10:00 AM", location: "MedCare Clinic, Mumbai" },
-        { doctor: "Dr. Nisha Rao", specialty: "Neurologist", date: "April 3, 2025", time: "2:00 PM", location: "MedCare Clinic, Delhi" }
-     
-   
-  ];
+  // store upcoming appointments
+  upcomingAppointments : any ;
 
-  medicalHistory = [
-    { visitDate: "March 5, 2025", doctor: "Dr. Sneha Iyer", specialty: "Dermatologist", diagnosis: "Skin Allergy", prescription: "Anti-Allergy Tablets", reportUrl: "#" },
-    { visitDate: "Feb 15, 2025", doctor: "Dr. Karan Mehta", specialty: "Orthopedic", diagnosis: "Knee Pain", prescription: "Painkillers & Physiotherapy", reportUrl: "#" }
-  ];
+  // store past appointments
+  pastAppointments : any ;
 
-  notifications = [
-    { message: "Appointment confirmed with Dr. Vikram Reddy on March 29 at 11:30 AM", type: "new" },
-    { message: "Take medication before breakfast (March 27, 8:00 AM)", type: "reminder" },
-    { message: "Appointment confirmed with Dr. Vikram Reddy on March 29 at 11:30 AM", type: "new" },
-    { message: "Take medication before breakfast (March 27, 8:00 AM)", type: "reminder" },
-    { message: "Appointment confirmed with Dr. Vikram Reddy on March 29 at 11:30 AM", type: "new" },
-    { message: "Take medication before breakfast (March 27, 8:00 AM)", type: "reminder" },
-    { message: "Appointment confirmed with Dr. Vikram Reddy on March 29 at 11:30 AM", type: "new" },
-    { message: "Take medication before breakfast (March 27, 8:00 AM)", type: "reminder" }
-  ];
+  // store reminders
+  reminders : any ;
 
+  // store the patient ID
+  patientId : any = '';
+
+  // show dialog information
+  dialogRef : any;
+
+  // for initization of services and component
+  constructor(
+    private appointmentService: AppointmentService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ){
+
+  }
+  
+  ngOnInit(): void {
+
+    // get the patient ID from the route params
+    this.patientId = this.route.snapshot.paramMap.get('patientId');
+
+    this.getUpcomingAppointments();
+    this.getPastAppointments();
+    this.getReminders();
+      
+  }
+
+ // method to fetch upcoming appointments 
+  getUpcomingAppointments(){
+    this.appointmentService.getUpcomingAppointmentsByPatientId(this.patientId)
+    .subscribe({
+      next: (data) => {
+        this.upcomingAppointments = data;
+        console.log('Upcoming Appointments:', this.upcomingAppointments);
+      },
+      error: (error) => {
+        console.error('Error fetching appointments:', error);
+      }
+    });
+  }
+
+  //method to fetch past appointments
+  getPastAppointments(){
+    this.appointmentService.getPastAppointmentsByPatientId(this.patientId)
+      .subscribe({
+        next: (data) => {
+          this.pastAppointments = data;
+          console.log('Past Appointments:', this.pastAppointments);
+        },
+        error: (error) => {
+          console.error('Error fetching appointments:', error);
+        }
+      });
+  }
+
+  // method to fetch reminders
+  getReminders(){
+    this.appointmentService.getRemindersByPatientId(this.patientId).subscribe({
+      next: (data) => {
+        this.reminders = data;
+        console.log('Reminders:', this.reminders);
+      },
+      error: (err) => {
+        console.error('Error fetching reminders:', err);
+      }
+    });
+  }
+  //open dialog to book new appointment
+  openAppointmentDialog() {
+    this.dialog.open(AppointmentComponent, {
+      width: '400px',  
+      height: '460px',  
+      position: {
+        top: '100px',   // Distance from the top
+      },
+      data: {},   // Pass any data you want to send to the dialog component
+      disableClose: false  // Allow closing by clicking outside
+    });
+  }
+
+  /* method for rescheduling the appointment 
+  * @param appointmentId  - the id of the appointment
+  */
   rescheduleAppointment(index: number) {
     alert(`Rescheduling appointment: ${this.upcomingAppointments[index].doctor}`);
   }
 
+  /* method for cancel the appointment 
+  * @param appointmentId  - the id of the appointment
+  */
   cancelAppointment(index: number) {
     alert(`Cancelling appointment: ${this.upcomingAppointments[index].doctor}`);
   }

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toast-top-right {
+    top: 10px !important;   // Adjust the vertical position of the toast
+    right: 10px !important;  // Adjust the horizontal position of the toast
+  }
+  ngx-toastr {
+    z-index: 9999 !important;  // Higher than the dialog's z-index
+  }

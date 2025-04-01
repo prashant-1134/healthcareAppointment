@@ -18,6 +18,8 @@ export class LoginComponent {
 
   userRole : string  = '';
 
+  patientId : string = '';
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -38,12 +40,14 @@ export class LoginComponent {
 
       this.userService.validateUser(payload).subscribe({
         next: (response) => {
+        this.patientId = response.id;
+        console.log(response);
         console.log('User authenticated successfully and the role is :', response.role);
         // Set the user role in your application state
         this.userRole = response.role;
   
-        // Optionally, navigate to another page or display a success message
-        this.router.navigate(['/patient/dashboard']);
+        // navigate to dashboard page 
+        this.router.navigate(['/patient/dashboard', this.patientId]);
          },
         error: (error) => {
           console.error('Erron Authenticating user:', error.error);
