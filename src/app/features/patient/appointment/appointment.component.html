@@ -1,53 +1,53 @@
 <h2>📅 Book an Appointment</h2>
-<form [formGroup]="appointmentForm">
 
+<form [formGroup]="appointmentForm">
+  
   <!-- Doctor Selection -->
   <mat-form-field class="select-field">
     <mat-label>Doctor</mat-label>
-    <mat-select formControlName="doctorId" >
+    <mat-select formControlName="doctorId">
       <mat-option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
         {{ doctor.firstName }} {{ doctor.lastName }} ({{ doctor.specialty }})
       </mat-option>   
     </mat-select>
   </mat-form-field>
 
-<!-- Appointment Date Picker -->
-<mat-form-field appearance="outline" class="select-field date-field">
-  <mat-label>Appointment Date</mat-label>
-  <input 
+  <!-- Appointment Date Picker -->
+  <mat-form-field appearance="outline" class="select-field date-field">
+    <mat-label>Appointment Date</mat-label>
+    <input 
     matInput 
     [matDatepicker]="picker" 
     formControlName="appointmentDate" 
     [min]="today" 
-    (dateChange)="fetchAvailableTimes()">
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-
-  <!-- Appointment Time Picker -->
-  <mat-form-field appearance="outline" class="select-field">
-    <mat-label>Appointment Time</mat-label>
-    <input matInput [ngxMatTimepicker]="timepicker" formControlName="appointmentTime" [disabled]="!availableTimes?.length">
-    <ngx-mat-timepicker-toggle matSuffix [for]="timepicker"></ngx-mat-timepicker-toggle>
-    <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+    (dateChange)="fetchAvailableTimes()">  <!-- ✅ Ensure API is triggered on date change -->
+  
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <!-- Available Time Slots (Optional display) -->
-  <mat-form-field *ngIf="availableTimes?.length > 0" appearance="outline" class="select-field">
+  <!-- Available Time Slots Dropdown -->
+  <mat-form-field *ngIf="availableTimes && availableTimes.length > 0" appearance="outline" class="select-field">
     <mat-label>Choose Time</mat-label>
     <mat-select formControlName="appointmentTime">
-      <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time }}</mat-option>
+      <mat-option *ngFor="let time of availableTimes" [value]="time">
+        {{ time }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
+  
+
+  <!-- No Available Slots Message -->
+  <p *ngIf="availableTimes?.length === 0 && appointmentForm.value.doctorId">❌ No slots available</p>
 
   <!-- Action Buttons -->
   <div class="button-group">
-    <button mat-raised-button color="primary" (click)="bookAppointment()" [disabled]="appointmentForm.invalid" class="btn-width">
+    <button mat-raised-button color="primary" (click)="bookAppointment()" [disabled]="appointmentForm.invalid">
       Confirm
     </button>
-    <button mat-button color="warn" type="button" (click)="closeDialog()" class="btn-width">
+    <button mat-button color="warn" type="button" (click)="closeDialog()">
       Cancel
     </button>
   </div>
+
 </form>

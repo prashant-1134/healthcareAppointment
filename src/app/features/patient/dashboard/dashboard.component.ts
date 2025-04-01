@@ -5,6 +5,7 @@ import { AppointmentService } from '../../../core/services/appointment.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AppointmentComponent } from '../appointment/appointment.component';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,6 +62,10 @@ export class DashboardComponent {
 
 
     this.getUpcomingAppointments();
+    interval(1000).subscribe(() => {
+      this.getUpcomingAppointments();
+    });
+  
     this.getPastAppointments();
     this.getReminders();
       
