@@ -16,6 +16,8 @@ import { AppointmentComponent } from '../appointment/appointment.component';
 export class DashboardComponent {
   userName: string = "John Doe"; // Placeholder user name
 
+  patientName: string = ''; 
+
   // store upcoming appointments
   upcomingAppointments : any ;
 
@@ -72,6 +74,7 @@ export class DashboardComponent {
         next: (data) => {
           this.pastAppointments = data;
           console.log('Past Appointments:', this.pastAppointments);
+
         },
         error: (error) => {
           console.error('Error fetching appointments:', error);
@@ -116,5 +119,6 @@ export class DashboardComponent {
   */
   cancelAppointment(index: number) {
     alert(`Cancelling appointment: ${this.upcomingAppointments[index].doctor}`);
+    
   }
 }

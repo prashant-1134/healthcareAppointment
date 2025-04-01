@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard'; // Import the AuthGuard
 
 export const routes: Routes = [
     {
@@ -17,5 +18,13 @@ export const routes: Routes = [
     {
         path: 'patient/dashboard/:patientId',
         loadComponent: () => import('./features/patient/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        canActivate: [AuthGuard], // ✅ Protect patient dashboard
+        data: { role: 'patient' }  // ✅ Only allow patients
+    },
+    {
+        path: 'doctor/dashboard/:doctorId',
+        loadComponent: () => import('./features/doctor/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        canActivate: [AuthGuard], // ✅ Protect doctor dashboard
+        data: { role: 'doctor' }  // ✅ Only allow doctors
     }
 ];
