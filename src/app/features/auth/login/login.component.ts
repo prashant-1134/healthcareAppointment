@@ -22,8 +22,11 @@ export class LoginComponent {
   doctorId: string = '';
 
 
-  patientName : string = '';
-  doctorName: string = '';
+  patientfirstName : string = '';
+  doctorfirstName : string = '';
+  patientlastName : string = '';
+  doctorlastName : string = '';
+  
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -43,12 +46,8 @@ export class LoginComponent {
   
       this.userService.validateUser(payload).subscribe({
         next: (response) => {
-          this.patientId = response.id;
-          this.doctorId = response.id;
 
-          this.patientName = response.first_name;
-          this.doctorName = response.id;
-
+          // route accordiong to the appropriate dashboard based on the user's role
           this.userRole = response.role;
   
           console.log(response);
@@ -56,10 +55,24 @@ export class LoginComponent {
   
           // Navigate based on the user role
           if (this.userRole === 'doctor') {
-            this.router.navigate(['/doctor/dashboard', this.doctorId]); // Doctor's Dashboard
-          } else if (this.userRole === 'patient') {
-            this.router.navigate(['/patient/dashboard', this.patientId]); // Patient's Dashboard
-          } else {
+            this.doctorId = response.id;
+            this.doctorfirstName = response.firstName;
+            this.doctorlastName = response.lastName;
+            this.router.navigate(['/doctor/dashboard', this.doctorId],{
+              queryParams: { firstName: this.doctorfirstName, lastName: this.doctorlastName } // Query Params for Doctor's Dashboard
+            }); // Doctor's Dashboard
+          } 
+          
+          else if (this.userRole === 'patient') {
+            this.patientId = response.id;
+            this.patientfirstName = response.firstName;
+            this.patientlastName = response.lastName;
+            this.router.navigate(['/patient/dashboard', this.patientId],{
+              queryParams: { firstName: this.patientfirstName, lastName: this.patientlastName } }// Query Params for Patient's Dashboard
+            ); // Patient's Dashboard
+          } 
+          
+          else {
             console.error('Unknown role:', this.userRole);
             alert('Unauthorized role');
           }

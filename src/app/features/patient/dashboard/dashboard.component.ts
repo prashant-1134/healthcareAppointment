@@ -33,6 +33,12 @@ export class DashboardComponent {
   // show dialog information
   dialogRef : any;
 
+  // store the patient's first name
+  patientfirstName : string = '';
+
+  // store the patient's last name
+  patientlastName : string = '';
+
   // for initization of services and component
   constructor(
     private appointmentService: AppointmentService,
@@ -46,6 +52,13 @@ export class DashboardComponent {
 
     // get the patient ID from the route params
     this.patientId = this.route.snapshot.paramMap.get('patientId');
+
+    // get the patient's first and last name from the route query parameters  (if present)
+    this.route.queryParams.subscribe(params => {
+      this.patientfirstName = params['firstName'] || '';
+      this.patientlastName = params['lastName'] || '';
+    });
+
 
     this.getUpcomingAppointments();
     this.getPastAppointments();
