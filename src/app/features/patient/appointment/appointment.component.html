@@ -11,13 +11,19 @@
     </mat-select>
   </mat-form-field>
 
-  <!-- Appointment Date Picker -->
-  <mat-form-field appearance="outline" class="select-field date-field">
-    <mat-label>Appointment Date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="appointmentDate" (dateChange)="fetchAvailableTimes()">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<!-- Appointment Date Picker -->
+<mat-form-field appearance="outline" class="select-field date-field">
+  <mat-label>Appointment Date</mat-label>
+  <input 
+    matInput 
+    [matDatepicker]="picker" 
+    formControlName="appointmentDate" 
+    [min]="today" 
+    (dateChange)="fetchAvailableTimes()">
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
 
   <!-- Appointment Time Picker -->
   <mat-form-field appearance="outline" class="select-field">

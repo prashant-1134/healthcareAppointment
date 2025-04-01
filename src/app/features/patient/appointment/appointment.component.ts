@@ -25,7 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatDatepickerModule,
     NgxMatTimepickerModule,
-    TimeFormatPipe
+   
   ],
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss']
@@ -35,6 +35,7 @@ export class AppointmentComponent {
   appointmentForm: any;
   doctors: any;
   availableTimes: any;
+  today: Date = new Date();  // Sets today's date as the minimum date
 
   constructor(
     private dialogRef: MatDialogRef<AppointmentComponent>,
